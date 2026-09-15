@@ -10,7 +10,7 @@ import hashlib
 import re
 import shutil
 
-CURRENT_VERSION = "1.2.86"
+CURRENT_VERSION = "1.2.87"
 CONFIG_PATH = "/etc/blue3-agent.conf"
 GITHUB_OWNER = "samirhvbr"
 GITHUB_REPO = "Sysadm_Srv"
@@ -493,8 +493,6 @@ def send_metrics(data, retries=3):
 
     for attempt in range(1, retries + 1):
         try:
-            print(f"DEBUG TOKEN: '{TOKEN}'")
-
             response = requests.post(
                 API_URL,
                 json=data,

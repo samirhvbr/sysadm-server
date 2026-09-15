@@ -54,6 +54,13 @@ Exemplos:
 5. Valide o auto-update.
 6. Depois de aprovado, mescle ou replique a mudança em `master`, rode `./update_version.sh master` e faça push.
 
+## Solução de problemas
+
+Mensagens de erro comuns (token ausente, falha ao instalar o git
+automaticamente, hash de update inválido, commit rejeitado pelos git hooks)
+e como resolver cada uma estão em [TROUBLESHOOTING.md](TROUBLESHOOTING.md)
+(em inglês, seguindo o padrão de idioma do repositório).
+
 ## Migração dos agentes já instalados
 
 Agentes antigos ainda consultam a URL legada em `files.b3.rs`. Para migrá-los para o git, ainda é necessário entregar a versão `1.2.86` uma única vez pelo canal atual ou manualmente. Depois disso, as próximas atualizações passam a ser feitas consultando o repositório git configurado, sem depender do URL local.

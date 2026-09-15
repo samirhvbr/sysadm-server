@@ -1,6 +1,6 @@
 # Versão — SYSADM-SERVER
 
-**Versão atual:** `0.1.7`
+**Versão atual:** `0.1.8`
 
 Agente de administração de servidores, com atualização a partir do GitHub.
 
@@ -36,13 +36,13 @@ Agente de administração de servidores, com atualização a partir do GitHub.
 ## 2. Formato de Commit Obrigatório
 
 ```
-X.Y.Z - Descrição curta em português
+X.Y.Z - short description in English
 ```
 
 **Regras inegociáveis:**
 
 1. A versão **sempre** vem deste `version.md` — bumpe **no mesmo commit** da mudança.
-2. Mensagem em **português**, específica o suficiente para `git log --grep`.
+2. Write the message in **English**, specific enough for `git log --grep`.
 3. **Proibido** Conventional Commits (`feat:`, `fix:`, `chore:`…) e mensagens vagas
    ("ajuste", "update", "wip").
 4. Um objetivo por commit.
@@ -58,6 +58,43 @@ X.Y.Z - Descrição curta em português
 ## 3. Changelog
 
 > Ordem decrescente (mais recente no topo).
+
+### `0.1.8` — 2026-09-15 — Make the troubleshooting delivery installable and keep tokens out of shell history
+
+The reviewed pull request removed the runtime token log, but its published
+`version.json` hash described different `srv.py` bytes. Agents would therefore
+download 1.2.87 and reject it as an invalid update. The hash now matches the
+delivered script. The unattended configuration example also prompts with echo
+disabled instead of embedding a live token in a command, and the commit-format
+example now follows the repository-wide English-only rule.
+
+### `0.1.8` — 2026-09-11 — Bump agent CURRENT_VERSION to 1.2.87 and refresh version.json for the debug-log fix
+
+The debug-log removal alone would not have reached already-deployed agents:
+`check_update()` only applies a fetched `srv.py` when its `CURRENT_VERSION`
+is strictly newer than the running agent's, and validates the download
+against the `sha256` recorded in `version.json`. Both were still pointing at
+`1.2.86` (the pre-fix content) after the previous commit, so deployed agents
+would have seen no version change and silently skipped the update.
+`CURRENT_VERSION` is bumped to `1.2.87` and `version.json` regenerated via
+`./update_version.sh master` against the corrected `srv.py`. Note this is
+the agent's own runtime version (`CURRENT_VERSION` / `version.json`), a
+separate numbering from this file's `X.Y.Z` repository version.
+
+### `0.1.8` — 2026-09-11 — Add TROUBLESHOOTING.md covering token, update and git-hook failures
+
+New contributors and operators had no single place mapping the agent's exact
+printed error messages to a cause and a fix. Adds `TROUBLESHOOTING.md`,
+linked from both `README.md` and `README_br.md`. Documentation only — no
+runtime behavior changes, so no separate trigger under section 1 applies;
+this entry shares the version bumped by the previous change in this delivery.
+
+### `0.1.8` — 2026-09-11 — Remove token value from debug log in send_metrics retry loop
+
+`send_metrics()` printed the full bearer token to stdout on every send attempt
+(`DEBUG TOKEN: '{TOKEN}'`), leaking a live credential into any terminal, cron
+log or log collector capturing the agent's output. The debug line is removed;
+the retry loop and status reporting are unaffected.
 
 ### `0.1.3` — 2026-09-02 — Agent doc: Releases rule and the English-only language rule
 
