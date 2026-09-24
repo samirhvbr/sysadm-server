@@ -1,10 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
-  "_comment_perfil": "NO `model` KEY, ON PURPOSE (24/09/2026 — repodocs ADR-026). A pin written here cannot win: the account's server-managed settings outrank every local file. And `opus[1m]` was a version pin wearing a window suffix — the 1M variant existed only for the previous Opus, so every session was born on it while the catalog already offered the newer one. To pin a model again, NAME the version: \"model\": \"opus55\". The highest effortLevel a FILE accepts is 'xhigh'; use /effort max for a single session.",
+  "_comment_perfil": "THIS FILE DOES NOT CHOOSE THE MODEL, ON PURPOSE (24/09/2026 — repodocs ADR-027). No `model`, no `fallbackModel`, and nothing in `env` that steers one: no `ANTHROPIC_MODEL`, no `ANTHROPIC_DEFAULT_*_MODEL`, no `CLAUDE_CODE_SUBAGENT_MODEL`. The model is the user's choice, made with /model, and a subagent inherits it. The highest effortLevel a FILE accepts is 'xhigh'; use /effort max for a single session.",
   "effortLevel": "xhigh",
-  "env": {
-    "CLAUDE_CODE_SUBAGENT_MODEL": "opus"
-  },
   "permissions": {
     "_comment": "Permissoes do projeto - Python (srv.py)",
     "defaultMode": "plan",
