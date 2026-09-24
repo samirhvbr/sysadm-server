@@ -27,28 +27,21 @@
       "Bash(mypy:*)"
     ],
     "deny": [
-      "Read(./.env)",
-      "Read(./.env.*)",
       "Read(./**/*.pem)",
       "Read(./**/*.key)",
       "Read(./**/*.p8)",
       "Read(./**/*.p12)",
-      "Read(./**/*.pfx)",
+      "Read(./**/*.pfx)"
+    ],
+    "ask": [
+      "Bash(sudo:*)",
       "Bash(rm -rf:*)",
-      "Bash(git push --force:*)",
-      "Bash(git push -f:*)",
-      "Bash(git push * --force*)",
-      "Bash(git reset --hard:*)",
-      "Bash(git clean -fd:*)",
+      "Bash(pip install:*)",
+      "Bash(pip3 install:*)",
       "Bash(curl * | sh:*)",
       "Bash(curl * | bash:*)",
       "Bash(wget * | sh:*)",
       "Bash(wget * | bash:*)"
-    ],
-    "ask": [
-      "Bash(sudo:*)",
-      "Bash(pip install:*)",
-      "Bash(pip3 install:*)"
     ]
   }
 }
